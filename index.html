@@ -86,7 +86,7 @@
             if (!animation) {
                 animation = atlas.animations.moveAlongPath(path, userShape, { 
                     captureMetadata: true,
-                    duration: 1000,
+                    duration: path.coordinates.length * 100, // Adjust duration based on number of coordinates
                     loop: false,
                     reverse: false,
                     rotationOffset: 0,
@@ -94,8 +94,14 @@
                     zoom: 19,
                     pitch: 45,
                     rotate: true,
-                    easing: "linear", // Use an appropriate easing function
-                    frameInterval: 30, // Adjust the frame interval for smoother animation
+                    easing: "linear", // Use linear easing for constant speed
+                    frameInterval: 20, // Adjust the frame interval for smoother animation
+                });
+            } else {
+                // Update animation options if needed
+                animation.setOptions({
+                    path: path,
+                    userShape: userShape,
                 });
             }
         }, function (error) {
